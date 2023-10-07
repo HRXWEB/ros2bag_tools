@@ -40,11 +40,11 @@ def field_size(datatype):
 
 def field_type_str(datatype):
     if datatype == INT8 or datatype == INT16 or datatype == INT32:
-        return 'i'
+        return 'I'
     elif datatype == UINT8 or datatype == UINT16 or datatype == UINT32:
-        return 'u'
+        return 'U'
     elif datatype == FLOAT32 or datatype == FLOAT64:
-        return 'f'
+        return 'F'
     else:
         raise TypeError('unknown pcd datatype')
 
@@ -125,11 +125,12 @@ class PcdExporter(Exporter):
             f.write(f'POINTS {n_points}\n')
             f.write('DATA ascii\n')
 
+            filed_num = len(cloud.fields)
             for i in range(n_points):
                 offset = i * cloud.point_step
-                for field in cloud.fields:
+                for j, field in enumerate(cloud.fields):
                     val = np.frombuffer(cloud.data, count=1, offset=offset + field.offset,
                                         dtype=pcd_type_to_np_type(field.datatype))[0]
-                    f.write(f'{val} ')
+                    f.write(f'{val}' + (f'' if j == filed_num - 1 else f' '))
                 f.write('\n')
         self._i += 1

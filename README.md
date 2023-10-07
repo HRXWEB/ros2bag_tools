@@ -23,6 +23,23 @@ ros2bag_tools adds verb extensions to the ros2bag cli.
 You can check detailed usage information with `ros2 bag $VERB --help`.
 Bold verbs support chaining as described in [chaining](#chaining).
 
+## Installation
+
+```bash
+# choice 1: install to your workspace
+cd ~/ros2_ws/src
+git clone git@192.168.3.224:algorithmdeployment/ros2bag_tools.git
+cd ..
+colcon build --packages-select ros2bag_tools
+
+# choice 2: install to independent dir
+cd /path/to/you/want
+git clone git@192.168.3.224:algorithmdeployment/ros2bag_tools.git
+colcon build
+```
+
+> Before running the tools, make sure to source the install dir.
+
 ## chaining
 
 Each command writes a new output bag on disk.
